@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{%block content %}
+{% load humanize %}
+<!-- 몇분전 나타내기
+    {{post.updated_at|naturaltime}} -->
+{%if request.user.is_authenticated%}
+<div>{{request.user.username}}님이 로그인 중에 있습니다.</div>
+<div class="logout">
+    <form action="/user/logout/" method="post">
+        {%csrf_token%}
+        <!-- 세션정보를 삭제해주어야되기때문에 포스트를 사용 -->
+        <button type="submit">로그아웃</button>
+    </form>
+    {%else%}
+    <a href="/users/login/">
+        <button>로그인</button>
+    </a>
+    <a href="/users/signup/">
+        <button>회원가입</button>
+    </a>
+    {%endif%}
+    <a href="/post/create/" name="create">
+        <button>새글만들기</button>
+    </a>
+</div>
+<div class="feed">
+    <h4>
+        < 오늘의 칭찬 피드>
+    </h4>
+    <ul class="Feed">
+        {%for post in posts%}
+        <li class="post">
+            <h2>{{post.title}}</h2>
+            {% if post.updated_at and post.updated_at != post.created_at %}
+            {{post.updated_at|naturaltime}}수정
+            {%else%}
+            {{post.created_at|naturaltime}}생성
+            {%endif%}
+            <p>글쓴이 : {{post.author}}</p>
+            <!-- url신중히 체크해야함... -->
+            {%for }
+            <p>이미지 : <img src="{{MEDIA_URL}}{{image_form.image}}" alt="" />{{post.image}}</p>
+            <p>파일 : <a href="{{MEDIA_URL}}{{file_form.file}}/" target="_blank" /></a>{{post.file}}</p>
+            <!-- target="_blank" 속성을 사용하면 링크가 클릭될 때 새 창 또는 새 탭에서 해당 링크가 열립니다. -->
+
+            <p>내용 : {{post.content}}</p>
+        </li>
+        {%endfor%}
+    </ul>
+</div>
+{%endblock%}

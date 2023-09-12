@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smilewithme</title>
+        <!-- ###{% block style %}###
+        이 곳에 static에 해당하는 코드 (css파일 연결 등) 작성-->
+        <!-- ###{% endblock %}### --> 
+</head>
+<body>
+    <nav>
+        네브바
+    </nav>
+    {% block content %}
+    <!--이 곳에 페이지의 내용 작성-->
+    {% endblock %}
+    <footer>
+        footer
+    </footer>
+</body>
+</html>
+
